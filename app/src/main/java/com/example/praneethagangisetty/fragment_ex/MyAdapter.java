@@ -1,12 +1,17 @@
 package com.example.praneethagangisetty.fragment_ex;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -23,9 +28,11 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         TextView news_title, serial_no, points, url, time, by, descendants;
+        LinearLayout ll;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
+            ll = (LinearLayout) itemView.findViewById(R.id.layout);
             serial_no = (TextView) itemView.findViewById(R.id.serial_no);
             points = (TextView) itemView.findViewById(R.id.points);
             url = (TextView) itemView.findViewById(R.id.url);
@@ -58,7 +65,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder,final int position) {
         final NewsData n;
         n = newsData.get(position);
 
@@ -72,6 +79,18 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 itemViewHolder.time.setText(n.getTime());
                 itemViewHolder.descendants.setText(n.getDescendants());
                 itemViewHolder.by.setText(n.getBy());
+                itemViewHolder.ll.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.v(c.getClass().getSimpleName(),"Clicked------------------------------------hmm");
+                        Intent it = new Intent(c, CommentsActivity.class);
+                        List<Integer> l=new ArrayList<>();
+                        l=newsData.get(position).getKids();
+                        it.putExtra("id",newsData.get(position).getId());
+                        it.putExtra("kids", (Serializable) l);
+                        c.startActivity(it);
+                    }
+                });
                 break;
             case LOADING:
                 break;

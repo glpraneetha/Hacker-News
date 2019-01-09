@@ -3,11 +3,17 @@ package com.example.praneethagangisetty.fragment_ex;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class NewsModel {
     @SerializedName("title")
     public String title;
+    @SerializedName("text")
+    public String comment_text;
     @SerializedName("score")
     public int score;
+    @SerializedName("kids")
+    public List<Integer> kids;
     @SerializedName("time")
     public long time;
     @SerializedName("by")
@@ -16,6 +22,22 @@ public class NewsModel {
     public int descendants;
     @SerializedName("url")
     private String url;
+
+    public String getComment_text() {
+        return comment_text;
+    }
+
+    public void setComment_text(String comment_text) {
+        this.comment_text = comment_text;
+    }
+
+    public List<Integer> getKids() {
+        return kids;
+    }
+
+    public void setKids(List<Integer> kids) {
+        this.kids = kids;
+    }
 
     public int getScore() {
         return score;

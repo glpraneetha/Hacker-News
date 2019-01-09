@@ -1,20 +1,44 @@
 package com.example.praneethagangisetty.fragment_ex;
 
 
+import java.util.List;
+
 public class NewsData {
-    String serial_no,points,news_title,url,time,by,descendants;
+    String id, serial_no, points, news_title, url, time, by, descendants;
+    List<Integer> kids;
 
-
-    public NewsData(int a, int b, String c, String d, long e, String f, int g){
-        serial_no=String.valueOf(a);
-        points=String.valueOf(b)+"p";
-        news_title=c;
-        url=d;
-        time=String.valueOf(e);
-        by=f;
-        descendants=String.valueOf(g);
+    public NewsData() {
 
     }
+
+    public NewsData(String h, List<Integer> i, int a, int b, String c, String d, long e, String f, int g) {
+        serial_no = String.valueOf(a);
+        points = String.valueOf(b) + "p";
+        news_title = c;
+        url = d;
+        time = String.valueOf(e);
+        by = f;
+        descendants = String.valueOf(g);
+        id = h;
+        kids = i;
+    }
+
+    public List<Integer> getKids() {
+        return kids;
+    }
+
+    public void setKids(List<Integer> list) {
+        kids = list;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getSerial_no() {
         return serial_no;
     }

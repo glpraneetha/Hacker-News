@@ -103,6 +103,7 @@ public class NewNewsFragment extends Fragment {
             lastPage = true;
         }
         for (int i = k; i < k + 5; i++) {
+            final int finalI = i;
             apiService.getNewsTitles(p.get(i)).enqueue(new Callback<NewsModel>() {
                 @Override
                 public void onResponse(@NonNull Call<NewsModel> call, @NonNull Response<NewsModel> response) {
@@ -110,7 +111,7 @@ public class NewNewsFragment extends Fragment {
                         int h = list.size() + 1;
                         adapter.removeLoadingFooter();
                         isLoading = false;
-                        list.add(new NewsData(h, response.body().getScore(), response.body().getTitle(), response.body().getUrl(), response.body().getTime(), response.body().getBy(), response.body().getDescendants()));
+                        list.add(new NewsData(p.get(finalI),response.body().getKids(),h, response.body().getScore(), response.body().getTitle(), response.body().getUrl(), response.body().getTime(), response.body().getBy(), response.body().getDescendants()));
                         Log.v(tag, "Current size" + list.size());
                         adapter.notifyDataSetChanged();
                         if (currentpage < pages) adapter.addLoadingFooter();
@@ -126,14 +127,15 @@ public class NewNewsFragment extends Fragment {
         }
     }
 
-    private void getNewsTexts(List<String> s) {
+    private void getNewsTexts(final List<String> s) {
         for (int i = 0; i < 10; i++) {
+            final int finalI = i;
             apiService.getNewsTitles(s.get(i)).enqueue(new Callback<NewsModel>() {
                 @Override
                 public void onResponse(@NonNull Call<NewsModel> call, @NonNull Response<NewsModel> response) {
                     if (response.body() != null) {
                         int h = list.size() + 1;
-                        list.add(new NewsData(h, response.body().getScore(), response.body().getTitle(), response.body().getUrl(), response.body().getTime(), response.body().getBy(), response.body().getDescendants()));
+                        list.add(new NewsData(s.get(finalI),response.body().getKids(),h, response.body().getScore(), response.body().getTitle(), response.body().getUrl(), response.body().getTime(), response.body().getBy(), response.body().getDescendants()));
                         Log.v(tag, "Current size" + list.size());
                         adapter.notifyDataSetChanged();
                         setProgressBar(list);

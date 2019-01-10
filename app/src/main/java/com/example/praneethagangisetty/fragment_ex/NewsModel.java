@@ -13,7 +13,7 @@ public class NewsModel {
     @SerializedName("score")
     public int score;
     @SerializedName("kids")
-    public List<Integer> kids;
+    public List<Integer> kids=null;
     @SerializedName("time")
     public long time;
     @SerializedName("by")
@@ -85,5 +85,12 @@ public class NewsModel {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int size_kids(){
+        if(kids!=null){
+            return kids.size();
+        }
+        return 0;
     }
 }

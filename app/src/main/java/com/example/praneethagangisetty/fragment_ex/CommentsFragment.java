@@ -28,7 +28,7 @@ import retrofit2.Response;
  */
 public class CommentsFragment extends Fragment {
     static Intent intent;
-    TextView tv;
+    TextView tv,heading;
     LinearLayoutManager linearLayoutManager;
     List<CommentsData> comments_titles;
     Serializable kids;
@@ -61,6 +61,8 @@ public class CommentsFragment extends Fragment {
             comments_list = (List<Integer>) kids;
             if (comments_list != null) {
                 initViews(view);
+                heading.setVisibility(View.VISIBLE);
+                heading.setText(intent.getStringExtra("heading"));
                 tv.setVisibility(View.GONE);
                 rvc.setVisibility(View.VISIBLE);
                 getCommentsTitle();
@@ -74,6 +76,7 @@ public class CommentsFragment extends Fragment {
     private void initViews(View view) {
         linearLayoutManager = new LinearLayoutManager(getActivity());
         rvc = view.findViewById(R.id.rvc);
+        heading=view.findViewById(R.id.heading);
         rvc.setLayoutManager(linearLayoutManager);
         rvc.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         adapter = new CommentsAdapter((CommentsActivity) getActivity(), comments_titles);
@@ -85,7 +88,7 @@ public class CommentsFragment extends Fragment {
             apiService.getNewsTitles(String.valueOf(comments_list.get(i))).enqueue(new Callback<NewsModel>() {
                 @Override
                 public void onResponse(Call<NewsModel> call, Response<NewsModel> response) {
-                    comments_titles.add(new CommentsData(response.body().getComment_text()));
+                    comments_titles.add(new CommentsData(response.body().getComment_text(),response.body().getTime(),response.body().getBy(),response.body().size_kids()));
                     adapter.notifyDataSetChanged();
                 }
 

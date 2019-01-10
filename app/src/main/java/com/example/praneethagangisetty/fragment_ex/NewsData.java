@@ -1,6 +1,8 @@
 package com.example.praneethagangisetty.fragment_ex;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class NewsData {
@@ -16,11 +18,17 @@ public class NewsData {
         points = String.valueOf(b) + "p";
         news_title = c;
         url = d;
-        time = String.valueOf(e);
+        time = convert(e);
         by = f;
         descendants = String.valueOf(g);
         id = h;
         kids = i;
+    }
+
+    private String convert(long e) {
+        Date date=new Date(e*1000);
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("MMM DD, yyyy , hh:mm");
+        return simpleDateFormat.format(date);
     }
 
     public List<Integer> getKids() {

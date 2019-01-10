@@ -86,6 +86,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         Intent it = new Intent(c, CommentsActivity.class);
                         List<Integer> l=new ArrayList<>();
                         l=newsData.get(position).getKids();
+                        it.putExtra("heading",newsData.get(position).getNews_title());
                         it.putExtra("id",newsData.get(position).getId());
                         it.putExtra("kids", (Serializable) l);
                         c.startActivity(it);

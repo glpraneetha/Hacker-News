@@ -2,6 +2,7 @@ package com.example.praneethagangisetty.fragment_ex;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +19,13 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.MyView
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView comments_text;
+        TextView comments_text,comments_time,comments_by,kids;
         public MyViewHolder(View itemView) {
             super(itemView);
             comments_text=(TextView)itemView.findViewById(R.id.comments_text);
+            comments_time=(TextView)itemView.findViewById(R.id.time);
+            comments_by=(TextView)itemView.findViewById(R.id.by);
+            kids=(TextView)itemView.findViewById(R.id.descendants);
         }
     }
 
@@ -36,7 +40,10 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.MyView
     @Override
     public void onBindViewHolder(CommentsAdapter.MyViewHolder holder, int position) {
         CommentsData c=commentsData.get(position);
-        holder.comments_text.setText(c.getComment_title());
+        holder.comments_text.setText(Html.fromHtml(c.getComment_title()));
+        holder.comments_time.setText(c.getTime());
+        holder.comments_by.setText(c.getBy());
+        holder.kids.setText(c.getSizeofkids());
     }
 
     @Override

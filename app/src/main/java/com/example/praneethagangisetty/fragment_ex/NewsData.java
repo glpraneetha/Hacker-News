@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 public class NewsData {
-    String id, serial_no, points, news_title, url, time, by, descendants;
+    String id, serial_no, points, news_title, url=null, time, by, descendants;
     List<Integer> kids;
 
     public NewsData() {

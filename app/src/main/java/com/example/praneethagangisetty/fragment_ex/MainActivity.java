@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.addToBackStack(null);
     }
 
-    private void setNewNewsFragment() {
-        Fragment fragment = new NewNewsFragment();
+    private void setNewNewsFragment(String s) {
+        Fragment fragment = new NewNewsFragment(s);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
@@ -72,13 +72,12 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.home) {
             setFragment("Home screen");
         } else if (id == R.id.option1) {
-            setNewNewsFragment();
+            setNewNewsFragment("New News");
             //create a fragment
         } else if (id == R.id.option2) {
-            setFragment("Option2");
+            setNewNewsFragment("Top News");
         } else if (id == R.id.option3) {
-            setFragment("Option3");
-
+            setNewNewsFragment("Best News");
         } else if (id == R.id.settings) {
             setFragment("Settings");
         }

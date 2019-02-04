@@ -1,6 +1,7 @@
 package com.example.praneethagangisetty.fragment_ex;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -25,6 +26,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class NewNewsFragment extends Fragment {
 
     String tag;
@@ -38,10 +40,13 @@ public class NewNewsFragment extends Fragment {
     boolean isLoading=false;
     int pages;
     int currentpage=1;
+    String news_type=null;
     List<String> p;
 
-    public NewNewsFragment() {
+    @SuppressLint("ValidFragment")
+    public NewNewsFragment(String s) {
         // Required empty public constructor
+        news_type=s;
     }
 
 
@@ -50,7 +55,7 @@ public class NewNewsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_news, container, false);
-        getActivity().setTitle("Option1");
+        getActivity().setTitle(news_type);
         initViews(view);
         rv.addOnScrollListener(new PaginationScrollListener((LinearLayoutManager) layoutManager,getActivity()) {
             @Override
@@ -68,7 +73,7 @@ public class NewNewsFragment extends Fragment {
                 return isLoading;
             }
         });
-        getFirstTen();
+        getFirstTen(news_type);
         return view;
     }
 
@@ -153,9 +158,16 @@ public class NewNewsFragment extends Fragment {
         }
     }
 
-    public void getFirstTen() {
+    public void getFirstTen(String s) {
         p = new ArrayList<String>();
-        apiService.getLatestNews().enqueue(new Callback<List<String>>() {
+        Call<List<String>> c;
+        if(s.equalsIgnoreCase("New News"))
+            c=apiService.getLatestNews();
+        else if(s.equalsIgnoreCase("Top News"))
+            c=apiService.getTopNews();
+        else
+            c=apiService.getBestNews();
+        c.enqueue(new Callback<List<String>>() {
             @Override
             public void onResponse(Call<List<String>> call, Response<List<String>> response) {
                 Log.v(tag, "this reached");

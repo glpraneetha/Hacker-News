@@ -10,6 +10,12 @@ public interface APIInterface {
     @GET("newstories.json")
     Call<List<String>> getLatestNews();
 
+    @GET("topstories.json")
+    Call<List<String>> getTopNews();
+
+    @GET("beststories.json")
+    Call<List<String>> getBestNews();
+
     @GET("item/{id}.json")
     Call<NewsModel> getNewsTitles(@Path("id") String id);
 
